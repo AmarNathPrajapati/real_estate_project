@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2024 at 04:39 AM
+-- Generation Time: Sep 04, 2024 at 04:59 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,7 +43,8 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`sno`, `name`, `phone`, `email`, `message`, `location`, `money`, `date`) VALUES
-(20, 'Amar Nath Prajapati', 9140572251, 'amarnathjnp1051@gmail.com', 'New Message', 'rural', '2500000', '04/09/2024 08:04');
+(20, 'Amar Nath Prajapati', 9140572251, 'amarnathjnp1051@gmail.com', 'New Message', 'rural', '2500000', '04/09/2024 08:04'),
+(21, 'Amar Nath Prajapati', 234567890, 'amarnathjnp1051@gmail.com', 'ertyui ertyuio', 'rural', '2500000', '04/09/2024 08:10');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,7 @@ ALTER TABLE `prediction`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `sno` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `sno` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `prediction`
