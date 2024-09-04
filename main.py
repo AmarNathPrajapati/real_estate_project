@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,session,redirect,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
-from flask_mail import Mail
+# from flask_mail import Mail
 import os
 from werkzeug.utils import secure_filename
 import math
@@ -15,6 +15,9 @@ import pickle
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
+from datetime import datetime
+from flask import flash, redirect, url_for
+
 
 housing = pd.read_csv('data.csv')
 
@@ -72,7 +75,8 @@ class Contact(db.Model):
     message=db.Column(db.String(120), nullable=False)
     location = db.Column(db.String(120), nullable=False)
     money=db.Column(db.String(120), nullable=False)
-    date= db.Column(db.String(150), nullable=False)
+    date = db.Column(db.String(150), default=datetime.now().strftime('%d/%m/%Y %H:%M'))
+
     
 class Prediction(db.Model):
     # CRIM	ZN	INDUS	CHAS	NOX	RM	AGE	DIS	RAD	TAX	PTRATIO	B	LSTAT	MEDV
@@ -179,18 +183,24 @@ def logout():
   
 @app.route("/contact", methods=['GET','POST'])
 def contact():
-    if(request.method=='POST'):
-        name=request.form.get('name')
-        phone=request.form.get('phone')
-        email=request.form.get('email')
-        message=request.form.get('message')
-        location=request.form.get('location')
-        money=request.form.get('money')
-        entry = Contact(name=name,phone= phone,email=email,message=message,location=location,money=money);
+    if request.method == 'POST':
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        location = request.form.get('location')
+        money = request.form.get('money')
+        entry = Contact(name=name, phone=phone, email=email, message=message, location=location, money=money)
         db.session.add(entry)
         db.session.commit()
-        # flash("Thanks for contact with us","success")
-        # flash("we will soon contact with you","primary")
+
+        # Flash success messages
+        flash("Thanks for contacting us!", "success")
+        flash("We will get in touch with you soon.", "primary")
+
+        # Redirect to the contact page to prevent form resubmission on refresh
+        return redirect(url_for('contact'))
+
     return render_template("contact.html", params=params)
 
 app.run(debug=True)
